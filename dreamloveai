@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DreamLove AI</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0d0d0d;
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff0077, #6600ff);
+      letter-spacing: 2px;
+    }
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 900px;
+      margin: auto;
+      width: 100%;
+      padding: 20px;
+    }
+    .persona-select {
+      margin-bottom: 15px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .persona-select select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    .chat-box {
+      flex: 1;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 12px;
+      overflow-y: auto;
+    }
+    .msg {
+      margin: 10px 0;
+      max-width: 70%;
+      padding: 10px 15px;
+      border-radius: 12px;
+      line-height: 1.5;
+    }
+    .user {
+      background: #ff0077;
+      margin-left: auto;
+    }
+    .ai {
+      background: #333;
+      margin-right: auto;
+    }
+    .input-area {
+      display: flex;
+      margin-top: 15px;
+      gap: 10px;
+    }
+    input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: #ff0077;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>DreamLove AI 💗</header>
+
+  <div class="container">
+    <div class="persona-select">
+      <select id="persona">
+        <option value="cute">Cute & Caring</option>
+        <option value="bold">Bold & Flirty</option>
+        <option value="emotional">Emotional Lover</option>
+        <option value="funny">Funny & Playful</option>
+      </select>
+    </div>
+
+    <div class="chat-box" id="chat"></div>
+
+    <div class="input-area">
+      <input type="text" id="msg" placeholder="Type your message..." />
+      <button onclick="sendMsg()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function aiReply(text, persona) {
+      const replies = {
+        cute: `Aww baby, ${text}? You're so sweet ♥` ,
+        bold: `Hmm naughty boy... so you said: ${text} 😘`,
+        emotional: `Your words really touch me... ${text} 💖`,
+        funny: `Haha! You said '${text}'? You're crazy 😂`
+      };
+      return replies[persona] || replies.cute;
+    }
+
+    function sendMsg() {
+      let msg = document.getElementById("msg").value;
+      if (!msg.trim()) return;
+
+      let chat = document.getElementById("chat");
+      let persona = document.getElementById("persona").value;
+
+      chat.innerHTML += `<div class='msg user'>${msg}</div>`;
+      document.getElementById("msg").value = "";
+
+      setTimeout(() => {
+        let aiText = aiReply(msg, persona);
+        chat.innerHTML += `<div class='msg ai'>${aiText}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+      }, 500);
+    }
+  </script>
+</body>
+</html>
